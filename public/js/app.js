@@ -109,6 +109,12 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
         controller: 'HotelmapCtrl'
     })
 
+    .state('twitter', {
+        url: '/twitter',
+        templateUrl: 'templates/twitter.html',
+        controller: 'TwitterCtrl'
+    })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/menu');
 
