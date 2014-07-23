@@ -1,0 +1,13 @@
+.DS_Store
+.nodemonignore
+.sass-cache/
+.bower-*/
+.idea/
+node_modules/
+test/coverage
+mean.iml
+platforms/
+ios/
+ssunsApp/
+bower_components/
+app/bower_components/

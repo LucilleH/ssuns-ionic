@@ -1,0 +1,31 @@
+<!-- 
+  This template gets placed in the Pet tab's <ion-nav-view> directive.
+  It was wired up in the app config (app.js) 
+  The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
+-->
+<ion-view title="Friends" right-buttons="rightButtons">
+  <ion-content has-header="true" has-tabs="false">
+    <ion-refresher
+     on-refresh="onRefresh()"
+     >
+    </ion-refresher>
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="q">
+  </label>
+    <!--<ion-list>-->
+    <div class="list">
+
+      <!-- <ion-item ng-repeat="pet in pets" type="item-text-wrap" href="#/pets/{{pet.id}}"> -->
+      <a class="item item-avatar" ng-href="#/friends/{{user._id}}" ng-repeat="user in friends | filter: q" >
+      <img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture">
+      <h2>{{user.name}}</h2>
+        <p ng-show="_.contains(user.friends, $scope.session.user._id)">{{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
+        <p ng-show="!_.contains(user.friends, $scope.session.user._id)">Friend request sent</p>
+      </a>
+      <!-- </ion-item> -->
+      
+    <!-- </ion-list> -->
+  </div>
+  </ion-content>
+</ion-view>
