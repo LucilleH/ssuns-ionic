@@ -23,7 +23,9 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
 })
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $sceProvider) {
+
+  $sceProvider.enabled(false);
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -103,18 +105,17 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
         controller: 'SubmenuCtrl'
     })
 
-    .state('map', {
-        url: '/map',
-        templateUrl: 'templates/hotel-map.html',
-        controller: 'HotelmapCtrl'
+    .state('browser', {
+        url: '/browser?url&title',
+        templateUrl: 'templates/browser.html',
+        controller: 'BrowserCtrl'
     })
 
-    .state('twitter', {
-        url: '/twitter',
-        templateUrl: 'templates/twitter.html',
-        controller: 'TwitterCtrl'
+    .state('forum', {
+        url: '/forum', 
+        templateUrl: 'templates/forum.html',
+        controller: 'MainCtrl'
     })
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/menu');
 

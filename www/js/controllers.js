@@ -55,26 +55,73 @@ angular.module('borrowedApp.controllers', ['google-maps'])
   $scope.title = $stateParams.title;
 })
 
-.controller('menuCtrl', function($scope) {
-})
-
-.controller('HotelmapCtrl', function($scope) {
-  $scope.map = {
-    center: {
-        latitude: 45.499239,
-        longitude: -73.566085
-    },
-    zoom: 15
+.controller('menuCtrl', function($scope, $state, AuthService, SessionService) {
+  $scope.browser = function(url) {
+    var ref = window.open('http://' + url, '_blank', 'location=yes');
+  };
+  $scope.authenticate = function() {
+    AuthService.login(function() {
+      $scope.session = SessionService;
+      $scope.$watch('session', function() {
+        if($scope.session.user.name == null){
+          $state.go('login');
+        }
+        else {
+          $state.go('forum');
+        }
+      });
+    });
   };
 })
 
+.controller('BrowserCtrl', function($scope, $stateParams) {
+  /*$scope.map = {
+    center: {
+        lAuthService.login(function() {
+    $scope.session = SessionService;
+    $scope.$watch('session', function() {
+      if($scope.session.user.name == null){
+        $state.go('login');
+      }
+    });atitude: 45.499239,
+        longitude: -73.566085
+    },
+    zoom: 15
+  };*/
+   var ref = window.open('http://' + $stateParams.url, '_blank', 'location=yes');
+   $scope.title = $stateParams.title;
+
+ // var ref = window.open('http://maps.google.ca/?q=H5A+1E4', '_blank', 'location=yes');
+})
+/*
 .controller('TwitterCtrl', function($scope, $timeout) {
-    $scope.run = function() {
+    /*$scope.run = function() {
       (!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs"));
     }
     $scope.run();
-    $timeout(function () { twttr.widgets.load(); }, 100); 
+    $timeout(function () { twttr.widgets.load(); }, 500);
+    
+    $scope.showLoading();
+    $http.get("http://twitter.com/search?q=%23SSUNS").success(function(data) {
+      $scope.content = data;
+      $scope.hideLoading();
+      console.log($scope.content);
+    });
+    var ref = window.open('http://twitter.com/search?q=%23SSUNS', '_blank', 'location=no');
 })
+
+.controller('FacebookCtrl', function($scope, $timeout) {
+    /*$scope.run = function() {
+      (!function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+    }
+    $scope.run(); 
+    $timeout(function () { FB.XFBML.parse(); }, 500);
+    var ref = window.open('https://www.facebook.com/officialssuns', '_blank', 'location=no');
+})
+
+https://www.youtube.com/channel/UCCHYwb-lrewUehE4edclD2g/videos
+*/
+
 // ----- Login Page
 
 .controller('LoginCtrl', function($scope) {

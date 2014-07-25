@@ -10,16 +10,20 @@
         <i class="icon ion-ios7-people"></i>
         Committees
     </a>
+    <a class="item item-icon-left" ng-click="authenticate()">
+        <i class="icon ion-chatbubbles"></i>
+        Committee Forums
+    </a>
 
     <div class="item item-divider">
         Hotel
       </div>
-      <a class="item item-icon-left" ng-href="#/map">
+        <a class="item item-icon-left" ng-click="browser('maps.google.ca/?q=H5A+1E4')">
         <i class="icon ion-ios7-location"></i>
         Hotel direction
     </a>
-    <a class="item item-icon-left" ng-href="#/submenu?url=/m/floor-plan&title=floor">
-        <i class="icon ion-ios7-paperplane-outline"></i>
+    <a class="item item-icon-left" ng-href="">
+        <i class="icon ion-ios7-paperplane"></i>
         Floor plan
     </a>
     <a class="item item-icon-left" ng-href="#/submenu?url=/m/hotel-contact&title=contact">
@@ -30,15 +34,15 @@
     <div class="item item-divider">
         Social media
       </div>
-      <a class="item item-icon-left" ng-href="#/twitter">
+      <a class="item item-icon-left" ng-click="browser('mobile.twitter.com/search?q=%23SSUNS')">
         <i class="icon ion-social-twitter"></i>
         Twitter
     </a>
-    <a class="item item-icon-left" ng-href="/facebook">
+    <a class="item item-icon-left" ng-click="browser('m.facebook.com/officialssuns')">
         <i class="icon ion-social-facebook"></i>
         Facebook
     </a>
-    <a class="item item-icon-left" ng-href="/youtube">
+    <a class="item item-icon-left" ng-click="browser('www.youtube.com/channel/UCCHYwb-lrewUehE4edclD2g/videos')">
         <i class="icon ion-social-youtube-outline"></i>
         Youtube
     </a>
@@ -47,10 +51,10 @@
         More
       </div>
       <a class="item item-icon-left" ng-href="/sponsors">
-        <i class="icon ion-ribbon-b"></i>
+        <i class="icon ion-earth"></i>
         Sponsors
     </a>
-    <a class="item item-icon-left" ng-href="/photos">
+    <a class="item item-icon-left" ng-href="">
         <i class="icon ion-images"></i>
         Photos
     </a>
@@ -59,7 +63,7 @@
         Charity events
     </a>
     <a class="item item-icon-left" ng-href="/food-deals">
-        <i class="icon ion-social-usd"></i>
+        <i class="icon ion-coffee"></i>
         Food deals
     </a>
 
