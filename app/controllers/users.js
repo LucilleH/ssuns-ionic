@@ -11,7 +11,7 @@
  * Auth callback
  */
  exports.authCallback = function(req, res) {
-    res.redirect('/');
+    res.redirect('#/tab/delegates');
 };
 
 /**
@@ -46,7 +46,7 @@
  * Session
  */
  exports.session = function(req, res) {
-    res.redirect('/');
+    res.redirect('#/friends');
 };
 
 /**
@@ -75,7 +75,7 @@
         }
         req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/');
+            return res.redirect('/friends');
         });
     });
 };

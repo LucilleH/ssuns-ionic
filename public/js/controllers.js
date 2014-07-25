@@ -16,7 +16,7 @@ angular.module('borrowedApp.controllers', ['google-maps'])
     $scope.loading = $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',
-      showBackdrop: true,
+      noBackdrop: true,
       maxWidth: 200,
       showDelay: 500
     });
@@ -53,6 +53,12 @@ angular.module('borrowedApp.controllers', ['google-maps'])
     console.log($scope.content);
   });
   $scope.title = $stateParams.title;
+})
+
+.controller('ForumCtrl', function($scope) {
+})
+
+.controller('MeCtrl', function($scope) {
 })
 
 .controller('menuCtrl', function($scope, $state, AuthService, SessionService) {

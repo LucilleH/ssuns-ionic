@@ -40,11 +40,41 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
     })
 
     // // setup an abstract state for the tabs directive
-    // .state('tab', {
-    //   url: "/tab",
-    //   abstract: true,
-    //   templateUrl: "templates/tabs.html"
-    // })
+    .state('tab', {
+       url: "/tab",
+       abstract: true,
+       templateUrl: "templates/tabs.html"
+    })
+
+    .state('tab.forum', {
+       url: '/forum',
+       views: {
+         'tab-forum': {
+           templateUrl: 'templates/tab-forum.html',
+           controller: 'ForumCtrl'
+         }
+       }
+    })
+
+    .state('tab.delegates', {
+       url: '/delegates',
+       views: {
+         'tab-delegates': {
+           templateUrl: 'templates/tab-delegates.html',
+           controller: 'FriendIndexCtrl'
+         }
+       }
+    })
+
+    .state('tab.me', {
+      url: '/me',
+      views: {
+        'tab-me': {
+          templateUrl: 'templates/tab-me.html',
+          controller: 'MeCtrl'
+        }
+      }
+    })
 
     // the pet tab has its own child nav-view and history
     .state('friend-index', {
@@ -75,27 +105,10 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
       templateUrl: 'templates/lend-money.html',
       controller: 'LendMoneyCtrl'
     })
-
-    // .state('tab.adopt', {
-    //   url: '/adopt',
-    //   views: {
-    //     'adopt-tab': {
-    //       templateUrl: 'templates/adopt.html'
-    //     }
-    //   }
-    // })
-
-    // .state('tab.about', {
-    //   url: '/about',
-    //   views: {
-    //     'about-tab': {
-    //       templateUrl: 'templates/about.html'
-    //     }
-    //   }
-    // });
+    
     .state('menu', {
       url: '/menu',
-      templateUrl: 'templates/tab-menu.html',
+      templateUrl: 'templates/menu.html',
       controller: 'menuCtrl'
     })
 
