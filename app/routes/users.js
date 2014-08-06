@@ -17,6 +17,8 @@ module.exports = function(app, passport) {
     app.get('/users/me', users.me);
     app.get('/friends', users.listFriends);
     app.post('/friends', users.addFriend);
+    app.get('/assign', users.me);
+    app.put('/assign', users.addAssign);
 
     // Setting up the users api
     app.get('/users', users.allUsers);

@@ -25,10 +25,11 @@ var UserSchema = new Schema({
     provider: String,
     salt: String,
     facebook: {},
-    friends: [{
+    committee: {
         type: Schema.ObjectId,
-        ref: 'User'
-    }]
+        ref: 'Committee'
+    },
+    position: String
 });
 
 /**

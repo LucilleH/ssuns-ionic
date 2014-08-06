@@ -8,11 +8,23 @@ angular.module('borrowedApp.services', [])
   // Might use a resource here that returns a JSON array
 
   var User = $resource( window.app.apiBaseUrl + '/users', {});
-
+  var Me = $resource( window.app.apiBaseUrl + '/assign', {},{'get':    {method:'GET'},
+    'update':   {method:'PUT'}});
   return {
     all: function() {
       var users = User.query();
       return users;
+    },
+    update: function(user, cb) {
+      var me = Me.get(function(res) {
+        res.committee = user.committeeId;
+        res.position = user.assignment;
+        console.log(res);
+        res.$update(function(data){
+          cb(data);
+          return data;
+        });
+      });
     }
   }
 })
@@ -77,6 +89,29 @@ angular.module('borrowedApp.services', [])
       });
     }
 
+  }
+})
+
+.factory('CommitteeService', function($resource, $http) {
+  var Committees = $resource( window.app.apiBaseUrl + '/committees', {});
+  var Committee = $resource( window.app.apiBaseUrl + '/committees/:id', {id: '@_id'},{'get':    {method:'GET'},
+    'update':   {method:'PUT'}});
+
+  return {
+    all: function() {
+      var committees = Committees.query();
+      return committees;
+    },
+    addMessage: function(committeeId, message, cb){
+      console.log(committeeId);
+      var committee = Committee.get({id: committeeId}, function(committee){
+        committee.messages.push(message);
+        committee.$update(function(data){
+          cb(data);
+          return data;
+        });
+      });
+    }
   }
 })
 

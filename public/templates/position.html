@@ -1,0 +1,21 @@
+<!--
+  This template loads for the 'position' state (app.js)
+-->
+<ion-view title="Settings" right-buttons="rightButtons">
+  <ion-content has-header="true" has-tabs="true">
+    <div class="list list-inset">
+      <label class="item item-input">
+        <span class="input-label">Your Committee:</span>
+        <select ng-model="user.committeeId" ng-options="c.name for c in committees" required></select>
+      </label>
+
+      <label class="item item-input" ng-if="user.committeeId">
+        <span class="input-label">Your Position:</span>
+        <select ng-model="$parent.user.assignment" ng-options="p as p for p in user.committeeId.positions" required></select>
+      </label>
+      {{ user.committeeId._id }},
+      {{ user.assignment }}
+    </div>
+    <button class="item button button-light" onclick="addAssignment(committeeId)">Next</button>
+  </ion-content>
+</ion-view>

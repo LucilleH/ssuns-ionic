@@ -99,6 +99,7 @@ angular.module('borrowedApp.controllers', ['google-maps'])
 
  // var ref = window.open('http://maps.google.ca/?q=H5A+1E4', '_blank', 'location=yes');
 })
+
 /*
 .controller('TwitterCtrl', function($scope, $timeout) {
     /*$scope.run = function() {
@@ -138,6 +139,63 @@ https://www.youtube.com/channel/UCCHYwb-lrewUehE4edclD2g/videos
 
 // ----- Index Page
 
+
+.controller('DelegateCtrl', function($scope, UserService, FriendService) {
+
+  // Quick hack: since we don't expect many users at first, load list of all users.
+  $scope.users = UserService.all();
+
+  // Update add button for each user
+  $scope.friendFilter = function(item){
+    if(item._id === $scope.session.user._id){
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  $scope.leftButtons = [
+    {
+      type: 'button-clear',
+      content: '<a class="button button-small button-stable">menu</a>',
+      tap: function(e) {
+        window.location.href = '/#/menu';
+      }
+    }
+  ];
+
+})
+
+
+.controller('PositionCtrl', function($scope, CommitteeService, UserService) {
+  //  $scope.me = CommitteeService.user()
+    $scope.user = {};
+    $scope.committees = CommitteeService.all();
+    //$scope.committeeId = null;
+    //$scope.assignment = {};
+
+    $scope.addAssignment = function(){
+      if($scope.user.committeeId && $scope.user.assignment){
+        console.log($scope.user.committeeId);
+        console.log($scope.user.assignment);
+        UserService.update($scope.user, function(){
+          window.location.href = '/#/tab/delegates';
+        });
+      }
+  }
+
+  $scope.rightButtons = [
+    {
+      type: 'button-clear',
+      content: 'Next',
+      tap: function(e) {
+        $scope.addAssignment();
+      }
+    }
+  ];
+
+})
+
 .controller('FriendIndexCtrl', function($scope, FriendService) {
   $scope.showLoading();
 
@@ -152,15 +210,15 @@ https://www.youtube.com/channel/UCCHYwb-lrewUehE4edclD2g/videos
     });
   }
 
-  /*$scope.rightButtons = [
+  $scope.leftButtons = [
     {
       type: 'button-clear',
-      content: '<a class="button button-icon icon ion-ios7-plus-empty"></a>',
+      content: '<a class="button button-small button-stable">menu</a>',
       tap: function(e) {
-        window.location.href = '/#/add-friend';
+        window.location.href = '/#/menu';
       }
     }
-  ];*/
+  ];
 
 })
 

@@ -61,7 +61,7 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
        views: {
          'tab-delegates': {
            templateUrl: 'templates/tab-delegates.html',
-           controller: 'FriendIndexCtrl'
+           controller: 'DelegateCtrl'
          }
        }
     })
@@ -74,6 +74,12 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
           controller: 'MeCtrl'
         }
       }
+    })
+
+    .state('me-position', {
+      url: '/me/position',
+      templateUrl: 'templates/position.html',
+      controller: 'PositionCtrl'
     })
 
     // the pet tab has its own child nav-view and history

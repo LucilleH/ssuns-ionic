@@ -11,7 +11,15 @@
  * Auth callback
  */
  exports.authCallback = function(req, res) {
-    res.redirect('#/tab/delegates');
+    var committee = req.user.committee || null;
+    if (committee !== null)
+    {
+        res.redirect('#/tab/delegates');
+    }
+    else
+    {
+        res.redirect('#/me/position');
+    }
 };
 
 /**
@@ -83,9 +91,26 @@
 /**
  * Send User
  */
- exports.me = function(req, res) {
+exports.me = function(req, res) {
     res.jsonp(req.user || null);
 };
+
+exports.addAssign = function (req, res){
+    var user = req.user;
+    user = _.extend(user, {"committee":req.body.committee._id, "position": req.body.position});
+    console.log(user);
+    user.save(function(err) {
+        if (err) {
+            console.log("sorry");
+            res.send(401, {
+                errors: err.errors,
+                user: user
+            });
+        } else {
+            res.jsonp(user);
+        }
+    });
+}
 
 
 exports.allUsers = function (req, res){
@@ -100,6 +125,7 @@ exports.allUsers = function (req, res){
         }
     });
 }
+
 
 exports.addFriend = function (req, res){
     var user = req.user,
