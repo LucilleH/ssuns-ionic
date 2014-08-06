@@ -3,21 +3,26 @@
   It was wired up in the app config (app.js) 
   The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
 -->
-<ion-view title="Find Friend">
+<ion-view title="Delegates" right-buttons="rightButtons" >
   <ion-content has-header="true" has-tabs="false">
+    <ion-refresher
+     on-refresh="onRefresh()"
+     >
+    </ion-refresher>
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" placeholder="Search" ng-model="q">
   </label>
-
+    <a class="item" href="#/forum?committeeId={{committeeId}}"><b>{{ committeename }} Forum</b></a>
+    <div class="item item-divider">
+        Delegates
+      </div>
     <div class="list">
-      <a class="item item-avatar item-button-right" ng-repeat="user in users | filter: q | filter:friendFilter | orderBy" >
+      <div class="item item-avatar" ng-repeat="user in users | filter: q | orderBy" >
         <img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture">
-        <h2>{{user.name}}</h2>
-        <button class="button button-clear" ng-class="user.addButtonClass" ng-click="addFriend(user._id)">{{user.addButtonText}}</button>
-        <p>{{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
-      </a>
-
+        <h2>{{user.position}}</h2>
+        <p>{{user.name}} - {{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
+      </div>
   </div>
   </ion-content>
 </ion-view>

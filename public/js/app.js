@@ -39,77 +39,21 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
       controller: "LoginCtrl"
     })
 
-    // // setup an abstract state for the tabs directive
-    .state('tab', {
-       url: "/tab",
-       abstract: true,
-       templateUrl: "templates/tabs.html"
+    .state('forum', {
+       url: '/forum?committeeId',
+       templateUrl: 'templates/forum.html',
+       controller: 'MessagesCtrl'
     })
 
-    .state('tab.forum', {
-       url: '/forum',
-       views: {
-         'tab-forum': {
-           templateUrl: 'templates/tab-forum.html',
-           controller: 'ForumCtrl'
-         }
-       }
+    .state('delegates', {
+       url: '/delegates?committeeId',
+       templateUrl: 'templates/delegates.html',
+       controller: 'DelegateCtrl'
     })
-
-    .state('tab.delegates', {
-       url: '/delegates',
-       views: {
-         'tab-delegates': {
-           templateUrl: 'templates/tab-delegates.html',
-           controller: 'DelegateCtrl'
-         }
-       }
-    })
-
-    .state('tab.me', {
-      url: '/me',
-      views: {
-        'tab-me': {
-          templateUrl: 'templates/tab-me.html',
-          controller: 'MeCtrl'
-        }
-      }
-    })
-
     .state('me-position', {
       url: '/me/position',
       templateUrl: 'templates/position.html',
       controller: 'PositionCtrl'
-    })
-
-    // the pet tab has its own child nav-view and history
-    .state('friend-index', {
-      url: '/friends',
-      templateUrl: 'templates/friend-index.html',
-      controller: 'FriendIndexCtrl'
-    })
-
-    .state('friend-detail', {
-      url: '/friends/:friendId',
-      templateUrl: 'templates/friend-detail.html',
-      controller: 'FriendDetailCtrl'
-    })
-
-    .state('add-friend', {
-      url:'/add-friend',
-      templateUrl: 'templates/add-friend.html',
-      controller: 'AddFriendCtrl' 
-    })
-
-    .state('lend-stuff', {
-      url:'/lend-stuff/:friendId',
-      templateUrl: 'templates/lend-stuff.html',
-      controller: 'LendStuffCtrl'
-    })
-    .state('lend-money', {
-      url:'/lend-money/:friendId',
-      templateUrl: 'templates/lend-money.html',
-      controller: 'LendMoneyCtrl'
     })
     
     .state('menu', {
@@ -128,12 +72,6 @@ window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.
         url: '/browser?url&title',
         templateUrl: 'templates/browser.html',
         controller: 'BrowserCtrl'
-    })
-
-    .state('forum', {
-        url: '/forum', 
-        templateUrl: 'templates/forum.html',
-        controller: 'MainCtrl'
     })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/menu');

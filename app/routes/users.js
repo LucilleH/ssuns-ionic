@@ -25,6 +25,7 @@ module.exports = function(app, passport) {
     app.post('/users', users.create);
 
     app.get('/users/:uId', users.show);
+    app.get('/delegates/:commId', users.committee);
 
     // Setting up the userId param
     app.param('userId', users.user);

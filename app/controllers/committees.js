@@ -43,15 +43,13 @@ exports.create = function(req, res) {
  * Update an Committee
  */
 exports.update = function(req, res) {
-    var committee = req.committee;
+    var committee = req.Committee;
     committee = _.extend(committee, req.body);
-
+    console.log(committee);
     committee.save(function(err) {
         if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                committee: committee
-            });
+            res.send(401);
+            return;
         } else {
             res.jsonp(committee);
         }
@@ -82,7 +80,16 @@ exports.destroy = function(req, res) {
  * Show an Committee
  */
 exports.show = function(req, res) {
-    res.jsonp(req.Committee);
+    Committee.findOne({_id : req.Committee._id})
+    .populate('messages.user', 'position')
+    .exec(function(err, Committees) {
+        if (err) {
+            res.send(401);
+            return;
+        } else {
+            res.jsonp(Committees);
+        }
+    });
 };
 
 /**
@@ -113,9 +120,8 @@ exports.all = function(req, res) {
     .populate('positions.user', 'name username facebook.id')
     .exec(function(err, Committees) {
         if (err) {
-            res.render('error', {
-                status: 500
-            });
+            res.send(401);
+            return;
         } else {
             res.jsonp(Committees);
         }

@@ -11,15 +11,7 @@
  * Auth callback
  */
  exports.authCallback = function(req, res) {
-    var committee = req.user.committee || null;
-    if (committee !== null)
-    {
-        res.redirect('#/tab/delegates');
-    }
-    else
-    {
-        res.redirect('#/me/position');
-    }
+    res.redirect('#/menu');
 };
 
 /**
@@ -194,7 +186,23 @@ exports.show = function(req, res) {
             res.jsonp(user);
         }
     });
-};
+}
+
+exports.committee = function(req, res) {
+    console.log("params:" + req.params.commId);
+    User.find({'committee': req.params.commId}).select('name email facebook.id facebook.education friends committee position')
+        .populate('committee', 'name')
+        .exec(function(err, users) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            console.log(users);
+            res.jsonp(users);
+        }
+    });
+}
 
 /**
  * Find user by id

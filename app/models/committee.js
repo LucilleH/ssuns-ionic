@@ -38,8 +38,7 @@ CommitteeSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
     })
-    .populate('positions.position')
-    .populate('positions.user', 'name facebook')
+    .populate('messages.user', 'position')
     .exec(cb);
 };
 

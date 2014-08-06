@@ -101,7 +101,7 @@ body, p, button, input, html, .item h2 {
   float: left;
   clear: both;
   max-width: 65%;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.2rem 0;
   padding: 0; }
 
 .messages li.me {
@@ -118,6 +118,9 @@ body, p, button, input, html, .item h2 {
 .messages li.me p {
   background: #158ffe;
   color: #fff; }
+
+.messages li div {
+  font-size: 8pt;}
 
 .messages img {
   display: block;
