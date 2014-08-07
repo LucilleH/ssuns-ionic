@@ -15,8 +15,8 @@
   </label>
     <a class="item" href="#/forum?committeeId={{committeeId}}"><b>{{ committeename }} Forum</b></a>
     <div class="item item-divider">
-        Delegates
-      </div>
+      Delegates
+    </div>
     <div class="list">
       <div class="item item-avatar" ng-repeat="user in users | filter: q | orderBy" >
         <img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture">
@@ -24,5 +24,16 @@
         <p>{{user.name}} - {{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
       </div>
   </div>
+  <div class="item item-divider">
+    Secretariat
+  </div>
+  <div class="list">
+      <div class="item item-avatar" ng-repeat="user in secretariat | filter: q | orderBy" >
+        <img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture">
+        <h2>{{user.position}}</h2>
+        <p>{{user.name}} - {{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
+      </div>
+  </div>
+
   </ion-content>
 </ion-view>

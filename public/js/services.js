@@ -11,16 +11,17 @@ angular.module('borrowedApp.services', [])
   var Me = $resource( window.app.apiBaseUrl + '/assign', {},{'get':    {method:'GET'},
     'update':   {method:'PUT'}});
   var CommUser = $resource( window.app.apiBaseUrl + '/delegates/:commId', {commId: '@_id'});
-  
+  var RoleUser = $resource( window.app.apiBaseUrl + '/roles/:roles', {roles: '@roles'});
+
   return {
     all: function() {
       var users = User.query();
       return users;
     },
-    update: function(user, cb) {
+    update: function(committeeId, position, cb) {
       var me = Me.get(function(res) {
-        res.committee = user.committeeId;
-        res.position = user.assignment;
+        res.committee = committeeId;
+        res.position = position;
         console.log(res);
         res.$update(function(data){
           cb(data);
@@ -30,6 +31,10 @@ angular.module('borrowedApp.services', [])
     },
     committee: function(cid) {
       var users = CommUser.query({commId: cid});
+      return users;
+    },
+    roles: function(r) {
+      var users = RoleUser.query({roles: r});
       return users;
     }
   }

@@ -89,15 +89,14 @@ exports.me = function(req, res) {
 
 exports.addAssign = function (req, res){
     var user = req.user;
-    user = _.extend(user, {"committee":req.body.committee._id, "position": req.body.position});
-    console.log(user);
+    if(req.body.committee._id)
+        user = _.extend(user, {"committee":req.body.committee._id});
+    if(req.body.position)
+        user = _.extend(user, {"position": req.body.position});
     user.save(function(err) {
         if (err) {
-            console.log("sorry");
-            res.send(401, {
-                errors: err.errors,
-                user: user
-            });
+            res.send(401);
+            return;
         } else {
             res.jsonp(user);
         }
@@ -189,16 +188,25 @@ exports.show = function(req, res) {
 }
 
 exports.committee = function(req, res) {
-    console.log("params:" + req.params.commId);
-    User.find({'committee': req.params.commId}).select('name email facebook.id facebook.education friends committee position')
-        .populate('committee', 'name')
+    User.find({'committee': req.params.commId, 'roles': {$ne: 'secretariat'}}).select('name email facebook.id facebook.education friends committee position')
+        .exec(function(err, users) {
+        if (err) {
+            res.send(401);
+            return;
+        } else {
+            res.jsonp(users);
+        }
+    });
+}
+
+exports.roles = function(req, res) {
+    User.find({'roles': req.params.role}).select('name email facebook.id facebook.education friends committee position')
         .exec(function(err, users) {
         if (err) {
             res.render('error', {
                 status: 500
             });
         } else {
-            console.log(users);
             res.jsonp(users);
         }
     });

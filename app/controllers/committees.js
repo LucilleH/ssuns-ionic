@@ -45,7 +45,6 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
     var committee = req.Committee;
     committee = _.extend(committee, req.body);
-    console.log(committee);
     committee.save(function(err) {
         if (err) {
             res.send(401);

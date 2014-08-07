@@ -29,7 +29,8 @@ var UserSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Committee'
     },
-    position: String
+    position: String,
+    roles: [String]
 });
 
 /**

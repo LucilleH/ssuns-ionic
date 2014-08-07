@@ -102,6 +102,8 @@ angular.module('borrowedApp.controllers',[])
     console.log(data);
   });
 
+  $scope.secretariat = UserService.roles('secretariat');
+
   var committeename = CommitteeService.refreshItem($scope.committeeId, function(data) {
     $scope.committeename = data.name;
   });
@@ -122,15 +124,37 @@ angular.module('borrowedApp.controllers',[])
 .controller('PositionCtrl', function($scope, CommitteeService, UserService) {
   //  $scope.me = CommitteeService.user()
     $scope.user = $scope.session.user;
-    $scope.committees = CommitteeService.all();
+
+    $scope.authorized = 0;
+    $scope.secretariat = 0;
+    if($scope.user.roles.indexOf("secretariat") != -1) 
+    {
+      $scope.authorized = 1;
+      $scope.secretariat = 1;
+    }
+
+    if($scope.user.committee!=null && !$scope.authorized) 
+    {
+      var committeename = CommitteeService.refreshItem($scope.user.committee, function(data) {
+        $scope.committeename = data.name;
+        $scope.authorized = 0;
+      });
+    }
+    else
+    {
+      $scope.committees = CommitteeService.all();
+      $scope.authorized = 1;
+    }
     //$scope.committeeId = null;
     //$scope.assignment = {};
 
     $scope.addAssignment = function(){
-      if($scope.user.committeeId && $scope.user.assignment){
+      if($scope.user.committee && $scope.user.position){
         console.log($scope.user);
-        UserService.update($scope.user, function(){
-          window.location.href = '/#/delegates?committeeId=' + $scope.user.committeeId._id;
+        UserService.update($scope.user.committee, $scope.user.position, function(){
+          $scope.session.user.committee = $scope.user.committee._id;
+          $scope.session.user.position = $scope.user.position;
+          window.location.href = '/#/delegates';
         });
       }
   }
@@ -138,7 +162,7 @@ angular.module('borrowedApp.controllers',[])
   $scope.rightButtons = [
     {
       type: 'button-clear',
-      content: 'Next',
+      content: 'Done',
       tap: function(e) {
         $scope.addAssignment();
       }
