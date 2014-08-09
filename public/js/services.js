@@ -1,4 +1,4 @@
-angular.module('borrowedApp.services', [])
+angular.module('ssunsApp.services', [])
 
 /**
  * A simple example service that returns some data.

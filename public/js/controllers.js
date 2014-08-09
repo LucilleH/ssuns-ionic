@@ -1,4 +1,4 @@
-angular.module('borrowedApp.controllers',[])
+angular.module('ssunsApp.controllers',[])
 
 // ----- Main Controller
 
@@ -28,7 +28,6 @@ angular.module('borrowedApp.controllers',[])
 })
 
 .controller('HomeCtrl', function($state, $scope, $ionicLoading) {
-  $state.go('menu');
    $scope.showLoading = function() {
     $scope.loading = $ionicLoading.show({
       content: 'Loading',
@@ -90,7 +89,14 @@ angular.module('borrowedApp.controllers',[])
 
 
 .controller('DelegateCtrl', function($scope, $stateParams, UserService, CommitteeService) {
-
+  if($scope.session.user.name == null){
+    $state.go('login');
+  }
+  else {
+    if($scope.session.user.committee == null) {
+      $state.go('me-position');
+    }
+  }
   // Quick hack: since we don't expect many users at first, load list of all users.
   $scope.committeeId = {};
   $scope.committeename = {};

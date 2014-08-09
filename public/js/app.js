@@ -6,7 +6,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-window.app = angular.module('borrowedApp', ['ionic', 'ngResource', 'borrowedApp.services', 'borrowedApp.controllers'])
+window.app = angular.module('ssunsApp', ['ionic', 'ngResource', 'ssunsApp.services', 'ssunsApp.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
