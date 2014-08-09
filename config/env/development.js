@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/borrowed-dev',
+    db: 'mongodb://localhost/ssuns',
     app: {
-        name: 'MEAN - A Modern Stack - Development'
+        name: 'SSUNS'
     },
     facebook: {
-        clientID: '152340601610394',
-        clientSecret: '1e9a0112d44a4d8a4f6d4e4fc5fdf7b8',
-        callbackURL: 'http://localhost:3000/auth/facebook/callback'
+        clientID: '687549974672055',
+        clientSecret: '2ecda359a2b1bc6189b4ad99739691e8',
+        callbackURL: 'http://m.ssuns.org/auth/facebook/callback'
     }
 };

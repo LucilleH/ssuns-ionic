@@ -72,6 +72,7 @@ walk(routes_path);
 
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;
+//var port = 8080;
 app.listen(port);
 console.log('Express app started on port ' + port);
 
