@@ -88,7 +88,7 @@ angular.module('ssunsApp.controllers',[])
 // ----- Index Page
 
 
-.controller('DelegateCtrl', function($scope, $stateParams, UserService, CommitteeService) {
+.controller('DelegateCtrl', function($scope, $state, $stateParams, UserService, CommitteeService) {
   if($scope.session.user.name == null){
     $state.go('login');
   }

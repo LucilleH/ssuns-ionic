@@ -41,7 +41,7 @@ angular.module('ssunsApp.services', [])
 })
 
 .factory('CommitteeService', function($resource, $http) {
-  var Committees = $resource( window.app.apiBaseUrl + '/committees', {});
+  var Committees = $resource( window.app.apiBaseUrl + '/committees', {}, {'query':  {method:'GET', isArray:true}});
   var Committee = $resource( window.app.apiBaseUrl + '/committees/:id', {id: '@_id'},{'get':    {method:'GET'},
     'update':   {method:'PUT'}});
 
