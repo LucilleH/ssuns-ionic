@@ -4,11 +4,11 @@ angular.module('ssunsApp.controllers',[])
 
 .controller('MainCtrl', function($scope, $state, AuthService, SessionService, $ionicLoading) {
   AuthService.login(function() {
-  	$scope.session = SessionService;
-  	$scope.$watch('session', function() {
-    	if($scope.session.user.name == null){
-  			$state.go('login');
-  		}
+    $scope.session = SessionService;
+    $scope.$watch('session', function() {
+      if($scope.session.user.name == null){
+        $state.go('login');
+      }
     });
   });
 
@@ -80,9 +80,9 @@ angular.module('ssunsApp.controllers',[])
 // ----- Login Page
 
 .controller('LoginCtrl', function($scope) {
-	$scope.login_button = function(){
-		window.location.href = window.app.apiBaseUrl + '/auth/facebook';
-	}
+  $scope.login_button = function(){
+    window.location.href = window.app.apiBaseUrl + '/auth/facebook';
+  }
 })
 
 // ----- Index Page
@@ -110,10 +110,25 @@ angular.module('ssunsApp.controllers',[])
 
   $scope.secretariat = UserService.roles('secretariat');
 
-  var committeename = CommitteeService.refreshItem($scope.committeeId, function(data) {
+  $scope.committee = CommitteeService.refreshItem($scope.committeeId, function(data) {
     $scope.committeename = data.name;
     $scope.messages = data.messages;
   });
+
+
+  $scope.loaded = false;
+
+  var loadData = function(cb){
+    var result = CommitteeService.refreshItem($scope.committeeId);
+    result.messages.$promise.then(function(data){
+        $scope.committeename = data.name;
+        $scope.messages = data.messages;
+        $scope.loaded = true;
+        cb(data);
+    });
+    return result;
+  }
+
 
   // Message Modal Init
   $ionicModal.fromTemplateUrl('templates/messages.html', function(modal) {
@@ -134,11 +149,23 @@ angular.module('ssunsApp.controllers',[])
   };
 
   $scope.onRefresh = function(){
-    CommitteeService.refreshItem($scope.committeeId, function(data){
-      console.log(data.messages);
-      $scope.messages = data.messages;
+    var result = loadData();
+
+    result.messages.$promise.then(function(){
       $scope.$broadcast('scroll.refreshComplete');
     });
+  }
+
+  // First load
+  var init = function(){
+    $scope.showLoading();
+    loadData(function(data){
+      $scope.hideLoading();
+    });
+  }
+
+  if( Object.size($scope.committee) === 0){
+    init();
   }
 
   $scope.rightButtons = [
@@ -208,7 +235,7 @@ angular.module('ssunsApp.controllers',[])
 // ----- Messages
 
 .controller('MessagesCtrl', function($scope, CommitteeService) {
-  $scope.closeMessages = function(itemtransactionId) {
+  $scope.closeMessages = function() {
     $scope.modal.hide();
   };
 
@@ -216,7 +243,7 @@ angular.module('ssunsApp.controllers',[])
     if($scope.newMessage.length > 0){
       var message = {user: $scope.session.user._id, content: $scope.newMessage};
       CommitteeService.addMessage($scope.committeeId, message, function(){
-        $scope.onRefresh();
+        $scope.messages.push(message);
         $scope.newMessage = '';
       });
     }
