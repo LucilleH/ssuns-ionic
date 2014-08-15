@@ -88,7 +88,7 @@ angular.module('ssunsApp.controllers',[])
 // ----- Index Page
 
 
-.controller('DelegateCtrl', function($scope, $state, $stateParams, UserService, CommitteeService) {
+.controller('DelegateCtrl', function($scope, $state, $stateParams, $ionicModal, UserService, CommitteeService) {
   if($scope.session.user.name == null){
     $state.go('login');
   }
@@ -112,7 +112,35 @@ angular.module('ssunsApp.controllers',[])
 
   var committeename = CommitteeService.refreshItem($scope.committeeId, function(data) {
     $scope.committeename = data.name;
+    $scope.messages = data.messages;
   });
+
+  // Message Modal Init
+  $ionicModal.fromTemplateUrl('templates/messages.html', function(modal) {
+    $scope.modal = modal;
+    }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+
+  $scope.openMessages = function() {
+    $scope.newMessage = '';
+    $scope.modalId = $scope.committeeId;
+    $scope.modal.show();
+  };
+
+  $scope.onRefresh = function(){
+    var result = loadData();
+
+    result.itemtransactions.$promise.then(function(){
+      $scope.friendDetails.itemtransactions = result.itemtransactions;
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
 
   $scope.rightButtons = [
     {
@@ -180,14 +208,10 @@ angular.module('ssunsApp.controllers',[])
 
 // ----- Messages
 
-.controller('MessagesCtrl', function($scope, $stateParams, CommitteeService) {
-  $scope.committeeId = $stateParams.committeeId || $scope.session.user.committee;
-  $scope.newMessage = '';
-  $scope.messages = $scope.messages || {};
-  CommitteeService.refreshItem($scope.committeeId, function(data) {
-    $scope.messages = data.messages;
-    console.log(data);
-  });
+.controller('MessagesCtrl', function($scope, CommitteeService) {
+  $scope.closeMessages = function(itemtransactionId) {
+    $scope.modal.hide();
+  };
 
   $scope.addMessage = function(){
     if($scope.newMessage.length > 0){

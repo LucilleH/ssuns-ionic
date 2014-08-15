@@ -13,7 +13,7 @@
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" placeholder="Search" ng-model="q">
   </label>
-    <a class="item" href="#/forum?committeeId={{committeeId}}"><b>{{ committeename }} Forum</b></a>
+    <a class="item" ng-click="openMessages()"><b>{{ committeename }} Forum</b></a>
     <div class="item item-divider">
       Delegates
     </div>
