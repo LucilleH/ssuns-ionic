@@ -134,10 +134,9 @@ angular.module('ssunsApp.controllers',[])
   };
 
   $scope.onRefresh = function(){
-    var result = loadData();
-
-    result.itemtransactions.$promise.then(function(){
-      $scope.friendDetails.itemtransactions = result.itemtransactions;
+    CommitteeService.refreshItem($scope.committeeId, function(data){
+      console.log(data.messages);
+      $scope.messages = data.messages;
       $scope.$broadcast('scroll.refreshComplete');
     });
   }

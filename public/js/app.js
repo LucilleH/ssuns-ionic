@@ -39,12 +39,6 @@ window.app = angular.module('ssunsApp', ['ionic', 'ngResource', 'ssunsApp.servic
       controller: "LoginCtrl"
     })
 
-    .state('forum', {
-       url: '/forum?committeeId',
-       templateUrl: 'templates/forum.html',
-       controller: 'MessagesCtrl'
-    })
-
     .state('delegates', {
        url: '/delegates?committeeId',
        templateUrl: 'templates/delegates.html',
