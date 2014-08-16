@@ -2782,8 +2782,6 @@ function androidKeyboardFix() {
       //document.body.classList.add('hide-footer');
       //Wait for next frame so document.activeElement is set
       //ionic.requestAnimationFrame(handleKeyboardChange);
-    	//var modal = document.getElementById("modal");
-	//modal.scrollTop = modal.scrollHeight;
     } else {
       //Otherwise we have a keyboard close or a *really* weird resize
       //document.body.classList.remove('hide-footer');
