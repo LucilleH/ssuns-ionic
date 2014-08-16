@@ -13,7 +13,7 @@
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" placeholder="Search" ng-model="q">
   </label>
-    <a class="item" ng-click="openMessages()"><b>{{ committeename }} Forum</b></a>
+    <a class="item" href="#/forum?committeeId={{committeeId}}"><b>{{ committeename }} Forum</b></a>
     <div class="item item-divider">
       Delegates
     </div>
@@ -31,7 +31,7 @@
       <div class="item item-avatar" ng-repeat="user in secretariat | filter: q | orderBy" >
         <img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture">
         <h2>{{user.position}}</h2>
-        <p>{{user.name}} - {{user.facebook.education[user.facebook.education.length-1].school.name}}</p>
+        <p>{{user.name}}</p>
       </div>
   </div>
 

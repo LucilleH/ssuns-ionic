@@ -44,6 +44,13 @@ window.app = angular.module('ssunsApp', ['ionic', 'ngResource', 'ssunsApp.servic
        templateUrl: 'templates/delegates.html',
        controller: 'DelegateCtrl'
     })
+
+    .state('forum', {
+      url: '/forum?committeeId',
+      templateUrl: 'templates/messages.html',
+      controller: 'MessagesCtrl'
+    })
+
     .state('me-position', {
       url: '/me/position',
       templateUrl: 'templates/position.html',
