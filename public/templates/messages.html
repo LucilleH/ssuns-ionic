@@ -1,4 +1,4 @@
-<div class="modal" ng-controller="MessagesCtrl">
+<div id="modal" class="modal" ng-controller="MessagesCtrl">
 <header class="bar bar-header bar-light">
       <h1 class="title">{{committeename}}</h1>
       <button class="button button-clear button-positive" ng-click="closeMessages()">Close</button>
@@ -10,10 +10,10 @@
     </ion-refresher>
 
   <ol class="messages">
-    <li ng-repeat="message in messages" ng-class="{me: message.user._id == session.user._id}"><div>{{message.user.position}}</div><p>{{message.content}}</p></li>
+    <li ng-repeat="message in messages" ng-class="{me: message.user._id == session.user._id}"><span>{{message.user.position}}</span><p>{{message.content}}</p></li>
   </ol>
 </ion-content>
-<ion-footer class="bar bar-footer bar-light bar-input-inset">
+<ion-footer class="bar bar-footer bar-light bar-input-inset android-fix">
 	<label class="item-input-wrapper">
       <input type="text" placeholder="" ng-model="newMessage">
     </label>

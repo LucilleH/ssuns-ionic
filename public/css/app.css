@@ -101,12 +101,14 @@ body, p, button, input, html, .item h2 {
   display: block;
   float: left;
   clear: both;
-  max-width: 65%;
-  margin: 0 0 0.2rem 0;
+  margin: 0 0 0.3rem 0;
   padding: 0; }
 
 .messages li.me {
-  float: right; }
+}
+
+.messages li span {
+  width: 100% }
 
 .messages p {
   border-radius: 0.75rem;
@@ -114,14 +116,13 @@ body, p, button, input, html, .item h2 {
   color: #383641;
   padding: 0.6875rem;
   margin: 0;
+  width: 100%;
   font-size: 0.875rem; }
 
 .messages li.me p {
   background: #158ffe;
   color: #fff; }
 
-.messages li div {
-  font-size: 8pt;}
 
 .messages img {
   display: block;
@@ -134,5 +135,5 @@ body, p, button, input, html, .item h2 {
 .item-avatar-committee {
     padding-top: 25px;  }
 
-.angular-google-map-container { 
-    height: 400px; }
+.hide-footer.android-fix.bar-footer {
+  display: flex; }

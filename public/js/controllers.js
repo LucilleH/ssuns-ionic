@@ -88,7 +88,7 @@ angular.module('ssunsApp.controllers',[])
 // ----- Index Page
 
 
-.controller('DelegateCtrl', function($scope, $state, $stateParams, $ionicModal, UserService, CommitteeService) {
+.controller('DelegateCtrl', function($scope, $state, $stateParams, $ionicModal, $ionicScrollDelegate, UserService, CommitteeService) {
   if($scope.session.user.name == null){
     $state.go('login');
   }
@@ -110,21 +110,20 @@ angular.module('ssunsApp.controllers',[])
 
   $scope.secretariat = UserService.roles('secretariat');
 
-  $scope.committee = CommitteeService.refreshItem($scope.committeeId, function(data) {
+  /*var committee = CommitteeService.refreshItem($scope.committeeId, function(data) {
     $scope.committeename = data.name;
     $scope.messages = data.messages;
-  });
+  });*/
 
 
   $scope.loaded = false;
 
   var loadData = function(cb){
-    var result = CommitteeService.refreshItem($scope.committeeId);
-    result.messages.$promise.then(function(data){
+    var result = CommitteeService.refreshItem($scope.committeeId, function(data){
         $scope.committeename = data.name;
         $scope.messages = data.messages;
         $scope.loaded = true;
-        cb(data);
+	cb(data);
     });
     return result;
   }
@@ -145,7 +144,13 @@ angular.module('ssunsApp.controllers',[])
   $scope.openMessages = function() {
     $scope.newMessage = '';
     $scope.modalId = $scope.committeeId;
+    var messageStartIndex = 0;
+    if($scope.messages.length > 40) {
+	messageStartIndex = $scope.messages.length - 40;
+    }
+    $scope.messages = $scope.messages.slice(messageStartIndex);
     $scope.modal.show();
+    $ionicScrollDelegate.scrollBottom();
   };
 
   $scope.onRefresh = function(){
@@ -164,7 +169,7 @@ angular.module('ssunsApp.controllers',[])
     });
   }
 
-  if( Object.size($scope.committee) === 0){
+  if( Object.size($scope.committeename) === 0){
     init();
   }
 
@@ -234,7 +239,7 @@ angular.module('ssunsApp.controllers',[])
 
 // ----- Messages
 
-.controller('MessagesCtrl', function($scope, CommitteeService) {
+.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, CommitteeService) {
   $scope.closeMessages = function() {
     $scope.modal.hide();
   };
@@ -243,8 +248,10 @@ angular.module('ssunsApp.controllers',[])
     if($scope.newMessage.length > 0){
       var message = {user: $scope.session.user._id, content: $scope.newMessage};
       CommitteeService.addMessage($scope.committeeId, message, function(){
-        $scope.messages.push(message);
+        message.user = {_id: $scope.session.user._id, position: $scope.session.user.position};
+	$scope.messages.push(message);
         $scope.newMessage = '';
+        $ionicScrollDelegate.scrollBottom();
       });
     }
   }
@@ -256,4 +263,5 @@ angular.module('ssunsApp.controllers',[])
       $scope.$broadcast('scroll.refreshComplete');
     });
   }
+  $ionicScrollDelegate.scrollBottom();
 });
