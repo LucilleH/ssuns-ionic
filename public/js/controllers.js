@@ -117,6 +117,7 @@ angular.module('ssunsApp.controllers',[])
 
 
   $scope.loaded = false;
+  $scope.timer = {};
 
   var loadData = function(cb){
     var result = CommitteeService.refreshItem($scope.committeeId, function(data){
@@ -138,6 +139,7 @@ angular.module('ssunsApp.controllers',[])
   });
 
   $scope.$on('$destroy', function() {
+    clearInterval($scope.timer);
     $scope.modal.remove();
   });
 
@@ -151,14 +153,26 @@ angular.module('ssunsApp.controllers',[])
     $scope.messages = $scope.messages.slice(messageStartIndex);
     $scope.modal.show();
     $ionicScrollDelegate.scrollBottom();
+    $scope.poll = true;
+
+    $scope.timer = setInterval(function(){
+	console.log('test');
+    	CommitteeService.refreshItem($scope.committeeId, function(data){
+		var scroll = false;
+		if (data.messages.length > $scope.messages.length)
+			scroll = true;
+        	$scope.messages = data.messages;
+		if(scroll) $ionicScrollDelegate.scrollBottom();
+	});
+    }, 10*1000); 
   };
 
   $scope.onRefresh = function(){
     var result = loadData();
 
     result.messages.$promise.then(function(){
-      $scope.$broadcast('scroll.refreshComplete');
-    });
+      $scope.$broadcast('scroll.refreshComplete');   
+   });
   }
 
   // First load
@@ -251,7 +265,8 @@ angular.module('ssunsApp.controllers',[])
         message.user = {_id: $scope.session.user._id, position: $scope.session.user.position};
 	$scope.messages.push(message);
         $scope.newMessage = '';
-        $ionicScrollDelegate.scrollBottom();
+        $scope.$broadcast('scroll.refreshComplete');
+	$ionicScrollDelegate.scrollBottom();
       });
     }
   }
