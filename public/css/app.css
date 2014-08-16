@@ -129,6 +129,11 @@ body, p, button, input, html, .item h2 {
   max-width: 65%;
   border-radius: 0.75rem; }
 
+.messages div {
+  display: block;
+  clear: both;
+  min-height: 30px; }
+
 .bar-input-inset input {
   background-color: transparent; }
 
