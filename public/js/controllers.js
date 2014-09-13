@@ -64,10 +64,7 @@ angular.module('ssunsApp.controllers',[])
       $state.go('login');
     }
     else {
-      if($scope.session.user.committee == null) {
-        $state.go('me-position');
-      }
-      else $state.go('delegates');
+      $state.go('delegates');
     }
   };
 })
@@ -90,12 +87,13 @@ angular.module('ssunsApp.controllers',[])
 
 .controller('DelegateCtrl', function($scope, $state, $stateParams, UserService, CommitteeService) {
   if($scope.session.user.name == null) {
-    $state.go('login');
+      $state.go('login');
   }
   else {
     if($scope.session.user.committee == null) {
-      $state.go('me-position');
+      $scope.assigned = false;
     }
+    else $scope.assigned = true;
   }
   // Quick hack: since we don't expect many users at first, load list of all users.
   $scope.committeeId = {};
@@ -134,12 +132,19 @@ angular.module('ssunsApp.controllers',[])
 
   // First load
   var init = function(){
-    $scope.showLoading();
-    loadData(function(data){
-      $scope.hideLoading();
-    });
+    if($scope.session.user.name == null) {
+      $state.go('login');
   }
-
+  else {
+    if($scope.session.user.committee != null)
+    {
+      $scope.showLoading();
+      loadData(function(data){
+        $scope.hideLoading();
+      });
+    }
+  }
+}
   if( Object.size($scope.committeename) === 0){
     init();
   }

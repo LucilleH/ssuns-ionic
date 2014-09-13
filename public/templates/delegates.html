@@ -13,6 +13,7 @@
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" placeholder="Search" ng-model="q">
   </label>
+  <div ng-if="assigned">
     <a class="item" href="#/forum?committeeId={{committeeId}}"><b>{{ committeename }} Forum</b></a>
     <div class="item item-divider">
       Delegates
@@ -23,7 +24,9 @@
         <h2>{{user.position}}</h2>
         <p>{{user.name}}</p>
       </div>
+    </div>
   </div>
+  <div ng-if="!assigned" class="card">Enter your committee and position in settings</div>
   <div class="item item-divider">
     Secretariat
   </div>
