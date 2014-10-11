@@ -57,6 +57,17 @@ angular.module('ssunsApp.controllers',[])
   };
 })
 
+.controller('PDFCtrl', function($scope, $stateParams, $http) {
+  $scope.content = "";
+  $scope.showLoading();
+  $http.get('http://docs.google.com/viewer?url=http://ssuns.org/' + $stateParams.url + '&embedded=true').success(function(data) {
+    $scope.content = data;
+    $scope.hideLoading();
+    console.log($scope.content);
+  });
+  $scope.title = $stateParams.title;
+})
+
 
 .controller('menuCtrl', function($scope, $state, AuthService, SessionService) {
   $scope.browser = function(url) {

@@ -69,6 +69,12 @@ window.app = angular.module('ssunsApp', ['ionic', 'ngResource', 'ssunsApp.servic
         controller: 'SubmenuCtrl'
     })
 
+    .state('pdfviewer', {
+        url: '/pdfviewer?url&title',
+        templateUrl: 'templates/pdfviewer.html',
+        controller: 'PDFCtrl'
+    })
+
     .state('browser', {
         url: '/browser?url&title',
         templateUrl: 'templates/browser.html',
