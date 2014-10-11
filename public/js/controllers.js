@@ -52,6 +52,9 @@ angular.module('ssunsApp.controllers',[])
     console.log($scope.content);
   });
   $scope.title = $stateParams.title;
+  $scope.browser = function(url) {
+    var ref = window.open('http://' + url, '_blank', 'location=yes');
+  };
 })
 
 
