@@ -200,7 +200,7 @@ exports.committee = function(req, res) {
 }
 
 exports.roles = function(req, res) {
-    User.find({'roles': req.params.role}).select('name email facebook.id facebook.education friends committee position')
+    User.find({'roles': req.params.role}).select('name email facebook.id facebook.education friends committee position').sort('position')
         .exec(function(err, users) {
         if (err) {
             res.render('error', {

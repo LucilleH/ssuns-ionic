@@ -180,8 +180,8 @@ angular.module('ssunsApp.controllers',[])
   //  $scope.me = CommitteeService.user()
     $scope.user = $scope.session.user;
 
-    $scope.authorized = 0;
-    $scope.secretariat = 0;
+    $scope.authorized = 1;
+    $scope.secretariat = 1;
     if($scope.user.roles.indexOf("secretariat") != -1) 
     {
       $scope.authorized = 1;
