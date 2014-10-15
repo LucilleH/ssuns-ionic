@@ -202,12 +202,12 @@ angular.module('ssunsApp.controllers',[])
     }
     //$scope.committeeId = null;
     //$scope.assignment = {};
-
+    $scope.committeeselected = {};
     $scope.addAssignment = function(){
-      if($scope.user.committee && $scope.user.position){
+      if($scope.committeeselected && $scope.user.position){
         console.log($scope.user);
-        UserService.update($scope.user.committee, $scope.user.position, function(){
-          $scope.session.user.committee = $scope.user.committee._id;
+        UserService.update($scope.committeeselected, $scope.user.position, function(){
+          $scope.session.user.committee = $scope.committeeselected._id;
           $scope.session.user.position = $scope.user.position;
           window.location.href = '/#/delegates';
         });
