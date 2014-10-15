@@ -2,7 +2,7 @@ angular.module('ssunsApp.controllers',[])
 
 // ----- Main Controller
 
-.controller('MainCtrl', function($scope, $state, AuthService, SessionService, $ionicLoading) {
+.controller('MainCtrl', function($scope, $state, AuthService, SessionService, $location, $ionicLoading) {
   AuthService.login(function() {
     $scope.session = SessionService;
     $scope.$watch('session', function() {
