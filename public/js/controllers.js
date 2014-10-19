@@ -9,6 +9,11 @@ angular.module('ssunsApp.controllers',[])
       if($scope.session.user.name == null){
         $state.go('login');
       }
+      else {
+	if (window.location.pathname == '/'){
+            addToHomescreen();
+    	}
+      }
     });
   });
 
@@ -108,7 +113,7 @@ angular.module('ssunsApp.controllers',[])
       $scope.assigned = false;
     }
     else $scope.assigned = true;
-  }
+  }  
   // Quick hack: since we don't expect many users at first, load list of all users.
   $scope.committeeId = {};
   $scope.committeename = {};
