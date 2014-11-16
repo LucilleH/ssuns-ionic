@@ -110,10 +110,11 @@ angular.module('ssunsApp.controllers',[])
   }
   else {
     if($scope.session.user.committee == null) {
-      $scope.assigned = false;
+      $scope.session.user.assigned = false;
     }
-    else $scope.assigned = true;
-  }  
+    else $scope.session.user.assigned = true;
+  } 
+  $scope.assigned = $scope.session.user.assigned;
   // Quick hack: since we don't expect many users at first, load list of all users.
   $scope.committeeId = {};
   $scope.committeename = {};
@@ -209,11 +210,12 @@ angular.module('ssunsApp.controllers',[])
     //$scope.assignment = {};
     $scope.committeeselected = {};
     $scope.addAssignment = function(){
-      if($scope.committeeselected && $scope.user.position){
+      if($scope.user.committee._id && $scope.user.position){
         console.log($scope.user);
-        UserService.update($scope.committeeselected, $scope.user.position, function(){
-          $scope.session.user.committee = $scope.committeeselected._id;
+        UserService.update($scope.user.committee, $scope.user.position, function(){
+          $scope.session.user.committee = $scope.user.committee._id;
           $scope.session.user.position = $scope.user.position;
+	  $scope.session.user.assigned = true;
           window.location.href = '/#/delegates';
         });
       }
